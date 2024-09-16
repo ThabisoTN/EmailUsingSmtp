@@ -1,4 +1,5 @@
 using EmailUsingSmtp.Data;
+using EmailUsingSmtp.Services; // Import your EmailService
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,6 +21,11 @@ namespace EmailUsingSmtp
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddControllersWithViews();
 
+            // Register the email service for dependency injection
+            builder.Services.AddTransient<EmailService, EmailService>();
+
+
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -30,7 +36,6 @@ namespace EmailUsingSmtp
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
